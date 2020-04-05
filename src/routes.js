@@ -2,16 +2,32 @@ const express= require('express');
 
 const {celebrate,Segments,Joi} = require('celebrate');
 
-
+const DepartmentsController = require('./Controllers/DepartmentsController');
+const SiteController = require('./Controllers/SiteController');
+const LaborController = require('./Controllers/LaborController');
+const DependentController = require('./Controllers/DependentController');
+const BodyCheckController = require('./Controllers/BodyCheckController');
 const routes = express.Router();
 
-// routes.post('/sessions', SessionController.create);
+routes.get('/site',SiteController.index);
+routes.delete('/site/:id',SiteController.delete);
+routes.post('/site',SiteController.create);
 
-routes.get('/ongs', (request,response)=>{
+routes.get('/departments',DepartmentsController.index);
+routes.delete('/departments/:id',DepartmentsController.delete);
+routes.post('/departments',DepartmentsController.create);
 
+routes.get('/labor',LaborController.index);
+routes.post('/labor',LaborController.create);
 
-    response.send("hello");
-});
+routes.get('/dependent',DependentController.index);
+routes.delete('/dependent/:id',DependentController.delete);
+routes.post('/dependent',DependentController.create);
+
+routes.get('/bodycheck',BodyCheckController.index);
+
+routes.post('/bodycheck',BodyCheckController.create);
+
 // routes.post('/ongs',celebrate({
 //     [Segments.BODY]:Joi.object().keys({
 //         nome: Joi.string().required(),

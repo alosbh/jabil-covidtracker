@@ -3,10 +3,35 @@
 module.exports = {
 
   development: {
+    client: 'postgresql',
+    connection: {
+      host: '144.217.32.38',
+      port:'32771',
+      database: 'covid19db',
+      user:     'root',
+      password: 'BELOBELO'
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      
+      directory:'./src/database/migrations',
+    
+      tableName: 'knex_migrations'
+    }
+  },
+
+  test: {
     client: 'sqlite3',
     connection: {
-      filename: './dev.sqlite3'
-    }
+      filename: './src/database/test.sqlite'
+    },
+    migrations:{
+      directory:'./src/database/migrations'
+    },
+    useNullAsDefault: true,
   },
 
   staging: {
