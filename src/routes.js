@@ -19,6 +19,8 @@ routes.post('/departments',DepartmentsController.create);
 
 routes.get('/labor',LaborController.index);
 routes.post('/labor',LaborController.create);
+routes.post('/labor/login',LaborController.login);
+routes.delete('/labor',LaborController.clear);
 
 routes.get('/dependent',DependentController.index);
 routes.delete('/dependent/:id',DependentController.delete);
