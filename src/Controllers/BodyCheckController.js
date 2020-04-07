@@ -5,10 +5,11 @@ module.exports = {
     async create (request,response){
 
         const {
+            LaborID,
             Time,
             Measure,} = request.body;
         
-        const LaborID = request.headers.authorization;
+        // const LaborID = request.headers.authorization;
         
         console.log({Time,Measure,LaborID});
         const newMeasure = await connection('BodyCheck').returning('*').insert({
@@ -25,11 +26,15 @@ module.exports = {
 
     async index (request,response){
 
+        // const measures = await connection('BodyCheck')
+        // .join('Labor','Labor.id','=','BodyCheck.LaborID')
+        // .select('BodyCheck,*',
+        // 'Labor.Name',
+        // 'Labor.DepartmentID'
+        // );
+
         const measures = await connection('BodyCheck')
-        .join('Labor','Labor.id','=','BodyCheck.LaborID')
-        .select('BodyCheck,*',
-        'Labor.Name',
-        'Labor.DepartmentID');
+        .select('*');
     
         return response.json(measures);
     }

@@ -54,26 +54,35 @@ module.exports = {
         const Password = request.body.Password;
         const user = await connection('Labor')
         .where('Email',Email)
-        .select('Name','Password')
+        .select('Name','Email','id')
+        .first();
+
+        const userPass = await connection('Labor')
+        .where('Email',Email)
+        .select('Password')
         .first();
         
         if(!user){
-            return response.status(400).send("Usuário não encontrado")
             console.log("user not found")
+            return response.status(400).send("Usuário não encontrado")
+            
         }
         try{
-            if(await bcrypt.compare(Password,user.Password)){
-                response.status(200).send("Login realizado.")
+            if(await bcrypt.compare(Password,userPass.Password)){
                 console.log("login realizado")
+                return response.json({user})
+                
             }
             else{
-                response.status(202).send("Senha Incorreta")
                 console.log("senha errada")
+                response.status(202).send("Senha Incorreta")
+                
             }
         }
-        catch{
+        catch(error){
+            console.log(error)
             return response.status(500).send();
-            console.log("algum erro aq")
+            
         }
 
 
