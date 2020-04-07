@@ -5,20 +5,22 @@ module.exports = {
     async create (request,response){
 
         const {Name,
-            birthDate,
-            SiteID,
-            DepartmentID,
-            mailAddress,
-            password} = request.body;
+            BirthDate,
+            Site,
+            Department,
+            Email,
+            Password} = request.body;
         
         
         const newLabor = await connection('Labor').returning('*').insert({
+            Email,
+            // EmailConfirm,
+            Password,
+            // PasswordConfirm,
             Name,
-            birthDate,
-            SiteID,
-            DepartmentID,
-            mailAddress,
-            password,
+            BirthDate,
+            Department,
+            Site
             })
         
 
